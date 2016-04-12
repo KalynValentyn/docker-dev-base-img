@@ -45,7 +45,7 @@ USER    default
 RUN echo "# Install nvm" && \
     cd /home/default/ && \
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
-    /bin/bash -l -c "source $HOME/.nvm/nvm.sh" >> $HOME/.bashrc && \
+    /bin/bash -l -c "source $HOME/.nvm/nvm.sh >> $HOME/.bashrc" && \
     nvm install stable && nvm use stable default
 
 RUN echo "# Install rvm" && \
