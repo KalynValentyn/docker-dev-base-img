@@ -48,5 +48,8 @@ RUN  cd /home/default \
   && \curl -sSL https://get.rvm.io | bash -s stable --ruby \
   && echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
 
+# install bundler for <bundle install>
+RUN gem install bundler
+
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
