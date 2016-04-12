@@ -1,6 +1,9 @@
 FROM ubuntu:14.04
 MAINTAINER Kalyn Valentyn <valentyn.kalyn@litslink.com>
 
+### Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 # set UTF-8 locale
 RUN locale-gen en_US.UTF-8  
 ENV LANG en_US.UTF-8  
