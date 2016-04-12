@@ -29,6 +29,13 @@ RUN echo "# Install nvm" && \
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
     cp /root/.nvm/nvm.sh /etc/profile.d/ && \
     /bin/bash -l -c "nvm install stable && nvm use stable default"
+    
+RUN echo "# Install rvm" && \
+    cd /home/default/ && \
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
+    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
+    echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
+    /bin/bash -l -c "gem install bundler"     
 
 # add default user 
 RUN useradd -m -s /bin/bash default
@@ -48,13 +55,6 @@ USER    default
 
 ADD bashrc /home/default/.bashrc
 RUN sudo chown default:default /home/default/.bashrc
-
-RUN echo "# Install rvm" && \
-    cd /home/default/ && \
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
-    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
-    sudo echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
-    /bin/bash -l -c "gem install bundler" 
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
