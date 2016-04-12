@@ -25,9 +25,17 @@ RUN apt-get install -qq -y \
     zlib1g-dev             \
     libbz2-dev
 
-# install npm and update nodejs
-RUN apt-get install -y npm
-RUN npm cache clean -f && npm install -g n && n stable
+RUN echo "# Install nvm" && \
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
+    cp /root/.nvm/nvm.sh /etc/profile.d/ && \
+    /bin/bash -l -c "nvm install stable && nvm use stable default" 
+
+RUN echo "# Install rvm" && \
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
+    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
+    echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
+    /bin/bash -l -c "gem install bundler"  
+
 
 # add default user 
 RUN useradd -m -s /bin/bash default
@@ -43,12 +51,12 @@ ENV     HOME /home/default
 USER    default
 
 # install RVM and stable version of ruby
-RUN  cd /home/default \
-  && gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
-  && \curl -sSL https://get.rvm.io | bash -s stable --ruby \
-  && source /home/default/.rvm/scripts/rvm \
-  && rvm use 2.3.0 -default \
-  && gem install bundler
+#RUN cd /home/default \
+#  && gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
+#  && \curl -sSL https://get.rvm.io | bash -s stable --ruby \
+#  &&  source /home/default/.rvm/scripts/rvm \
+#  && rvm use 2.3.0 -default \
+#  && gem install bundler
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
