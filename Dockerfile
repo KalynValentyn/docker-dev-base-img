@@ -25,6 +25,10 @@ RUN apt-get install -qq -y \
     zlib1g-dev             \
     libbz2-dev
 
+RUN echo "# Install nvm" && \
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
+    cp /root/.nvm/nvm.sh /etc/profile.d/ && \
+    /bin/bash -l -c "nvm install stable && nvm use stable default"
 
 # add default user 
 RUN useradd -m -s /bin/bash default
@@ -35,18 +39,15 @@ RUN find /usr/local -type d | xargs chmod g+w
 RUN echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default
 RUN chmod 0440 /etc/sudoers.d/default
 
+RUN cp -R /root/.nvm /home/default/
+RUN chown -R default:default /home/default/
+
 # set default user env
 ENV     HOME /home/default
 USER    default
-#ADD bashrc /home/default/.bashrc
-#RUN sudo chown default:default /home/default/.bashrc
 
-# install NVM and set default node
-RUN echo "# Install nvm" && \
-    cd /home/default/ && \
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
-    /bin/bash -l -c "source $HOME/.nvm/nvm.sh" && \
-    nvm install stable && nvm use stable default
+ADD bashrc /home/default/.bashrc
+RUN sudo chown default:default /home/default/.bashrc
 
 RUN echo "# Install rvm" && \
     cd /home/default/ && \
