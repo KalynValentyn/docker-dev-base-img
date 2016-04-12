@@ -38,14 +38,13 @@ RUN chmod 0440 /etc/sudoers.d/default
 # set default user env
 ENV     HOME /home/default
 USER    default
+ADD bashrc /home/default/.bashrc
 
 # install NVM and set default node
 RUN echo "# Install nvm" && \
     cd /home/default/ && \
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
     /bin/bash -l -c "nvm install stable && nvm use stable default"
-    
-ADD bashrc /home/default/.bashrc
 
 RUN echo "# Install rvm" && \
     cd /home/default/ && \
