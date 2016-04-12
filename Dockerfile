@@ -43,7 +43,6 @@ USER    default
 RUN echo "# Install nvm" && \
     cd /home/default/ && \
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
-    sudo cp /home/default/.nvm/nvm.sh /etc/profile.d/ && \
     /bin/bash -l -c "nvm install stable && nvm use stable default"
     
 ADD bashrc /home/default/.bashrc
