@@ -31,7 +31,6 @@ RUN echo "# Install nvm" && \
     /bin/bash -l -c "nvm install stable && nvm use stable default"
     
 RUN echo "# Install rvm" && \
-    cd /home/default/ && \
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
     curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
     echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
