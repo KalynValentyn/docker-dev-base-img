@@ -44,6 +44,7 @@ ADD bashrc /home/default/.bashrc
 RUN echo "# Install nvm" && \
     cd /home/default/ && \
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
+    echo "source /home/default/.nvm/nvm.sh" >> ~/.bashrc
     /bin/bash -l -c "nvm install stable && nvm use stable default"
 
 RUN echo "# Install rvm" && \
