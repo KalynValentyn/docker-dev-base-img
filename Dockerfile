@@ -38,7 +38,8 @@ RUN chmod 0440 /etc/sudoers.d/default
 # set default user env
 ENV     HOME /home/default
 USER    default
-ADD bashrc /home/default/.bashrc
+#ADD bashrc /home/default/.bashrc
+#RUN sudo chown default:default /home/default/.bashrc
 
 # install NVM and set default node
 RUN echo "# Install nvm" && \
