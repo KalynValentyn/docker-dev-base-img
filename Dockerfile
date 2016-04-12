@@ -43,15 +43,16 @@ USER    default
 RUN echo "# Install nvm" && \
     cd /home/default/ && \
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
-    cp /home/default/.nvm/nvm.sh /etc/profile.d/ && \
+    sudo cp /home/default/.nvm/nvm.sh /etc/profile.d/ && \
     /bin/bash -l -c "nvm install stable && nvm use stable default"
     
 ADD bashrc /home/default/.bashrc
 
 RUN echo "# Install rvm" && \
+    cd /home/default/ && \
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
     curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
-    echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
+    sudo echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
     /bin/bash -l -c "gem install bundler" 
 
 RUN mkdir /home/default/app
