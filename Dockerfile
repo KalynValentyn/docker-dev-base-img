@@ -26,6 +26,16 @@ RUN apt-get install -qq -y \
     zlib1g-dev             \
     libbz2-dev
 
+RUN echo "# Install rvm" && \
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
+    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
+    echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc 
+
+# install npm
+RUN apt-get install -y npm
+#install and update nodejs
+RUN npm cache clean -f && npm install -g n && n stable
+
 # add default user 
 RUN useradd -m -s /bin/bash default
 RUN chgrp -R default /usr/local
@@ -38,29 +48,6 @@ RUN chmod 0440 /etc/sudoers.d/default
 # set default user env
 ENV     HOME /home/default
 USER    default
-
-RUN cd /tmp &&\
-  wget -O ruby-install-0.6.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.0.tar.gz &&\
-  tar -xzvf ruby-install-0.6.0.tar.gz &&\
-  cd ruby-install-0.6.0/ &&\
-  make install
-
-# Install MRI Ruby
-RUN ruby-install ruby 2.3.0
-
-# Add Ruby binaries to $PATH
-ENV PATH /opt/rubies/ruby-2.3.0/bin:$PATH
-
-# Add options to gemrc
-RUN echo "install: --no-document\nupdate: --no-document" > ~/.gemrc
-
-# Install bundler
-RUN gem install bundler
-
-# install npm
-RUN sudo apt-get install -y npm
-#install and update nodejs
-RUN npm cache clean -f && npm install -g n && n stable
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
