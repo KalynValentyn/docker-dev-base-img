@@ -26,11 +26,6 @@ RUN apt-get install -qq -y \
     zlib1g-dev             \
     libbz2-dev
 
-RUN echo "# Install rvm" && \
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
-    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
-    echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc 
-
 # install npm
 RUN apt-get install -y npm
 #install and update nodejs
@@ -48,6 +43,12 @@ RUN chmod 0440 /etc/sudoers.d/default
 # set default user env
 ENV     HOME /home/default
 USER    default
+
+RUN echo "# Install rvm" && \
+    cd /home/default/ && \
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
+    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
+    echo "source $HOME/.rvm/rvm.sh" >> ~/.bashrc
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
