@@ -34,9 +34,6 @@ RUN find /usr/local -type d | xargs chmod g+w
 RUN echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default
 RUN chmod 0440 /etc/sudoers.d/default
 
-RUN cp -R /root/.nvm /home/default/
-RUN chown -R default:default /home/default/
-
 # set default user env
 ENV     HOME /home/default
 USER    default
