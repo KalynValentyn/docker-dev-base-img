@@ -13,6 +13,7 @@ ENV LC_ALL en_US.UTF-8
 # install some system libs
 RUN apt-get update -qq -y
 RUN apt-get install -qq -y \
+    wget                   \
     sudo                   \
     git                    \
     curl                   \
