@@ -48,7 +48,7 @@ RUN echo "# Install rvm" && \
     cd /home/default/ && \
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
     curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
-    echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
+    /bin/bash -l -c "echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile"
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
