@@ -28,7 +28,7 @@ RUN apt-get install -qq -y \
     libbz2-dev
 
 # install phantomjs
-RUN cd ~ && wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
+RUN cd /root && wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
  && tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
  && cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/
 
