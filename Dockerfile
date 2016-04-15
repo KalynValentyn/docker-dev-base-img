@@ -61,3 +61,5 @@ RUN echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
+
+CMD [ "bash" ]
