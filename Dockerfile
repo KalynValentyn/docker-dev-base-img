@@ -36,7 +36,7 @@ RUN echo "# Install rvm" && \
 # install npm
 RUN apt-get install -y npm
 #install and update nodejs
-RUN npm cache clean -f && npm install -g n && n stable
+RUN npm cache clean -f && npm install -g n && n 5.8.0
 
 # add default user 
 RUN useradd -m -s /bin/bash default
