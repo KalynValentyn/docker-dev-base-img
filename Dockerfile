@@ -27,6 +27,12 @@ RUN apt-get install -qq -y \
     zlib1g-dev             \
     libbz2-dev
 
+# install phantomjs
+RUN cd ~ && wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
+ && tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
+ && cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/
+
+# install rvm
 RUN echo "# Install rvm" && \
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
     curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
@@ -52,11 +58,6 @@ ENV     HOME /home/default
 USER    default
 
 RUN echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
-#RUN echo "# Install rvm" && \
-#    cd /home/default/ && \
-#    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
-#    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
-#    /bin/bash -l -c "echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile"
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
