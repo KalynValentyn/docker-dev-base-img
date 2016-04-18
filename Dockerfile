@@ -55,11 +55,11 @@ RUN chmod 0440 /etc/sudoers.d/default
 
 # set default user env
 ENV     HOME /home/default
-USER    default
+# USER    default
 
 RUN echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
 
 RUN mkdir /home/default/app
 WORKDIR /home/default/app
 
-CMD bundle exec rake assets:precompile
+CMD [ "/bin/bash -l -c" ]
