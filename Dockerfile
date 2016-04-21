@@ -38,25 +38,6 @@ RUN apt-get install -y npm
 #install and update nodejs
 RUN npm cache clean -f && npm install -g n && n 5.8.0
 
-# add default user 
-RUN useradd -m -s /bin/bash default
-RUN chgrp -R default /usr/local
-RUN find /usr/local -type d | xargs chmod g+w
 
-# make sudo nopasswd
-RUN echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default
-RUN chmod 0440 /etc/sudoers.d/default
-
-# set default user env
-ENV     HOME /home/default
-USER    default
-
-RUN echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
-#RUN echo "# Install rvm" && \
-#    cd /home/default/ && \
-#    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
-#    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
-#    /bin/bash -l -c "echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile"
-
-RUN mkdir /home/default/app
-WORKDIR /home/default/app
+RUN mkdir /var/app
+WORKDIR /var/app
