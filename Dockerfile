@@ -18,6 +18,7 @@ RUN apt-get install -qq -y \
     git                    \
     curl                   \
     build-essential        \
+    imagemagick            \
     libpq-dev              \ 
     autoconf               \
     libreadline-dev        \
