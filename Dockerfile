@@ -30,7 +30,7 @@ RUN apt-get install -qq -y \
 
 RUN echo "# Install rvm" && \
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
-    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable --ruby && \
+    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s 2.3.1 --ruby && \
     echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
     /bin/bash -l -c "gem install bundler"  
 
