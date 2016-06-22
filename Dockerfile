@@ -1,14 +1,14 @@
-FROM ubuntu:14.04
+FROM ruby:2.3.1
 MAINTAINER Kalyn Valentyn <valentyn.kalyn@litslink.com>
 
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # set UTF-8 locale
-RUN locale-gen en_US.UTF-8  
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8
+RUN apt-get update -qq && apt-get install -y locales -qq && locale-gen en_US.UTF-8 en_us && dpkg-reconfigure locales && dpkg-reconfigure locales && locale-gen C.UTF-8 && /usr/sbin/update-locale LANG=C.UTF-8
+ENV LANG C.UTF-8
+ENV LANGUAGE C.UTF-8
+ENV LC_ALL C.UTF-8
 
 # install some system libs
 RUN apt-get update -qq -y
@@ -27,12 +27,6 @@ RUN apt-get install -qq -y \
     libxslt-dev            \
     zlib1g-dev             \
     libbz2-dev
-
-RUN echo "# Install rvm" && \
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
-    curl https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s -- --version 2.3.1 --ruby && \
-    echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc && \
-    /bin/bash -l -c "gem install bundler"  
 
 # install npm
 RUN apt-get install -y npm
