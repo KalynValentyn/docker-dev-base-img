@@ -33,6 +33,8 @@ RUN apt-get install -y npm
 #install and update nodejs
 RUN npm cache clean -f && npm install -g n && n 5.8.0
 
+RUN gem install rake
+
 RUN echo "deb http://security.ubuntu.com/ubuntu lucid-security main" >> /etc/apt/sources.list
 RUN echo "deb http://cz.archive.ubuntu.com/ubuntu lucid main" >> /etc/apt/sources.list
 
