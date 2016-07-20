@@ -38,9 +38,5 @@ RUN gem install rake
 RUN echo "deb http://security.ubuntu.com/ubuntu lucid-security main" >> /etc/apt/sources.list
 RUN echo "deb http://cz.archive.ubuntu.com/ubuntu lucid main" >> /etc/apt/sources.list
 
-RUN apt-get update
-
-RUN apt-get install graphviz -y
-
 RUN mkdir /var/app
 WORKDIR /var/app
