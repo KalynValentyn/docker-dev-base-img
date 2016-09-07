@@ -29,9 +29,9 @@ RUN apt-get install -qq -y \
     libbz2-dev
 
 # install npm
-RUN apt-get install -y npm
+#RUN apt-get install -y npm
 #install and update nodejs
-RUN npm cache clean -f && npm install -g n && n 5.8.0
+#RUN npm cache clean -f && npm install -g n && n 5.8.0
 
 RUN gem install rake
 
