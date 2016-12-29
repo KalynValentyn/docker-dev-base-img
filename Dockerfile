@@ -1,4 +1,4 @@
-FROM ruby:2.3.1
+FROM ruby:2.4.0
 MAINTAINER Kalyn Valentyn <valentyn.kalyn@litslink.com>
 
 # Replace shell with bash so we can source files
